@@ -158,6 +158,14 @@ Disclaimer:         This report is advisory. Consult a certified mechanic before
 
 ---
 
+## Code Quality
+
+- Code formatted using **Black** for consistency and readability.
+- Version controlled using Git and hosted on GitHub.
+
+---
+
+
 ## Responsible AI
 
 - All outputs are advisory and not definitive
