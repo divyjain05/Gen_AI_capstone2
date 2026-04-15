@@ -24,27 +24,123 @@ def input_node(state: GraphState):
     }
 
 # NODE 2: Risk Analysis
-def risk_node(state: GraphState):
+def risk_node(state):
     d = state["input_data"]
     risks = []
 
+    # ---------------- CORE COMPONENT CONDITIONS ---------------- #
+
     if d["Battery_Status"] == "weak":
-        risks.append("weak battery")
+        risks.append("weak battery - immediate inspection required")
 
     if d["Tire_Condition"] == "worn out":
-        risks.append("worn tires")
+        risks.append("worn tires - safety risk, replace immediately")
 
     if d["Brake_Condition"] == "worn out":
-        risks.append("brake issues")
+        risks.append("brake system degradation - urgent attention required")
+
+    # ---------------- MILEAGE & USAGE ---------------- #
+
+    if d["Mileage"] > 80000:
+        risks.append("very high mileage - major components wear expected")
+    elif d["Mileage"] > 50000:
+        risks.append("high mileage - increased maintenance frequency required")
+
+    if d["Odometer_Reading"] > 120000:
+        risks.append("extreme odometer reading - full system inspection recommended")
+
+    # ---------------- VEHICLE AGE ---------------- #
+
+    if d["Vehicle_Age"] > 10:
+        risks.append("aged vehicle - high probability of component failure")
+    elif d["Vehicle_Age"] > 7:
+        risks.append("old vehicle - preventive maintenance required")
+
+    # ---------------- SERVICE HISTORY ---------------- #
+
+    if d["Service_History"] <= 2:
+        risks.append("low service history - potential hidden failures")
+
+    if d["Maintenance_History"] == "poor":
+        risks.append("poor maintenance history - high breakdown risk")
+    elif d["Maintenance_History"] == "average":
+        risks.append("inconsistent maintenance - moderate risk accumulation")
+
+    # ---------------- REPORTED ISSUES ---------------- #
+
+    if d["Reported_Issues"] >= 3:
+        risks.append("multiple reported issues - system instability likely")
+    elif d["Reported_Issues"] >= 1:
+        risks.append("existing issues reported - further inspection needed")
+
+    # ---------------- ACCIDENT HISTORY ---------------- #
 
     if d["Accident_History"] >= 3:
-        risks.append("high accident history")
+        risks.append("severe accident history - structural and brake risks")
+    elif d["Accident_History"] >= 1:
+        risks.append("accident history present - component reliability reduced")
 
-    if d["Mileage"] > 50000:
-        risks.append("high mileage")
+    # ---------------- FUEL EFFICIENCY ---------------- #
 
-    if d["Vehicle_Age"] > 8:
-        risks.append("old vehicle")
+    if d["Fuel_Efficiency"] < 12:
+        risks.append("low fuel efficiency - possible engine degradation")
+    elif d["Fuel_Efficiency"] < 15:
+        risks.append("reduced fuel efficiency - maintenance recommended")
+
+    # ---------------- ENGINE & SIZE ---------------- #
+
+    if d["Engine_Size"] > 2500:
+        risks.append("large engine - higher wear and maintenance demand")
+
+    # ---------------- FUEL TYPE SPECIFIC ---------------- #
+
+    if d["Fuel_Type"] == "diesel" and d["Mileage"] > 60000:
+        risks.append("diesel engine wear - injector and filter inspection required")
+
+    if d["Fuel_Type"] == "electric" and d["Battery_Status"] != "new":
+        risks.append("electric vehicle battery degradation risk")
+
+    if d["Fuel_Type"] == "petrol" and d["Vehicle_Age"] > 5:
+        risks.append("petrol engine aging - spark and combustion check needed")
+
+    # ---------------- TRANSMISSION ---------------- #
+
+    if d["Transmission_Type"] == "manual" and d["Mileage"] > 50000:
+        risks.append("manual transmission wear - clutch inspection required")
+
+    # ---------------- OWNER TYPE ---------------- #
+
+    if d["Owner_Type"] == "third":
+        risks.append("multiple ownership history - uncertain maintenance quality")
+    elif d["Owner_Type"] == "second":
+        risks.append("second owner vehicle - moderate usage uncertainty")
+
+    # ---------------- INSURANCE SIGNAL ---------------- #
+
+    if d["Insurance_Premium"] > 20000:
+        risks.append("high insurance premium - risk-prone vehicle profile")
+
+    # ---------------- CROSS CONDITIONS (IMPORTANT) ---------------- #
+
+    if d["Vehicle_Age"] > 7 and d["Mileage"] > 70000:
+        risks.append("old + high mileage - compounded wear risk")
+
+    if d["Maintenance_History"] == "poor" and d["Service_History"] <= 3:
+        risks.append("poor maintenance + low servicing - critical neglect risk")
+
+    if d["Battery_Status"] == "weak" and d["Fuel_Type"] == "electric":
+        risks.append("critical battery condition in EV - urgent replacement needed")
+
+    if d["Brake_Condition"] == "worn out" and d["Accident_History"] >= 1:
+        risks.append("brake wear + accident history - severe safety hazard")
+
+    if d["Tire_Condition"] == "worn out" and d["Mileage"] > 40000:
+        risks.append("tire degradation with high usage - immediate replacement")
+
+    # ---------------- FALLBACK (BIAS TOWARD MAINTENANCE) ---------------- #
+
+    if len(risks) == 0:
+        risks.append("routine maintenance recommended based on standard usage")
 
     return {
         "risk_factors": risks
