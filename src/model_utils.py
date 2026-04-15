@@ -5,6 +5,7 @@ data = joblib.load("decision_tree_balanced.pkl")
 model = data["model"]
 train_columns = data["columns"]
 
+
 def predict_maintenance(input_dict):
     df = pd.DataFrame([input_dict])
     df = pd.get_dummies(df)

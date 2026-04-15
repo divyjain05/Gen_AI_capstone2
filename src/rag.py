@@ -47,16 +47,15 @@ guidelines = [
     "Oil leakage indicates seal failure",
     "Coolant leakage leads to overheating",
     "Irregular servicing leads to cascading failures",
-    "Multiple minor issues can indicate major upcoming failure"
+    "Multiple minor issues can indicate major upcoming failure",
 ]
 
 embedding = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
 
 vectorstore = Chroma.from_texts(
-    texts=guidelines,
-    embedding=embedding,
-    persist_directory="/tmp/chroma_db"
+    texts=guidelines, embedding=embedding, persist_directory="/tmp/chroma_db"
 )
+
 
 def retrieve_guidelines(query):
     docs = vectorstore.similarity_search(query, k=2)

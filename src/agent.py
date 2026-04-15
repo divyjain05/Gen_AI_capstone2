@@ -8,6 +8,7 @@ from src.rag import retrieve_guidelines
 # LLM
 llm = ChatGroq(model="llama-3.1-8b-instant", temperature=0)
 
+
 # STATE
 class GraphState(TypedDict):
     input_data: Dict
@@ -16,12 +17,12 @@ class GraphState(TypedDict):
     guidelines: List[str]
     report: str
 
+
 # NODE 1: ML Prediction
 def input_node(state: GraphState):
     prediction = predict_maintenance(state["input_data"])
-    return {
-        "prediction": prediction
-    }
+    return {"prediction": prediction}
+
 
 # NODE 2: Risk Analysis
 def risk_node(state):
@@ -142,9 +143,8 @@ def risk_node(state):
     if len(risks) == 0:
         risks.append("routine maintenance recommended based on standard usage")
 
-    return {
-        "risk_factors": risks
-    }
+    return {"risk_factors": risks}
+
 
 # NODE 3: RAG
 def rag_node(state: GraphState):
@@ -154,9 +154,8 @@ def rag_node(state: GraphState):
 
     guidelines = retrieve_guidelines(query)
 
-    return {
-        "guidelines": guidelines
-    }
+    return {"guidelines": guidelines}
+
 
 # NODE 4: REPORT
 def report_node(state: GraphState):
@@ -186,9 +185,8 @@ Keep it concise and professional.
 
     response = llm.invoke(prompt)
 
-    return {
-        "report": response.content
-    }
+    return {"report": response.content}
+
 
 # BUILD GRAPH
 def build_graph():
