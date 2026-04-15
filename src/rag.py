@@ -17,7 +17,7 @@ embedding = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
 vectorstore = Chroma.from_texts(
     texts=guidelines,
     embedding=embedding,
-    persist_directory="./chroma_db"
+    persist_directory="/tmp/chroma_db"
 )
 
 def retrieve_guidelines(query):
