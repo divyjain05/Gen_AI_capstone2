@@ -133,35 +133,53 @@ To use it:
 
 ---
 
-## Agent Workflow (Milestone 2)
+---
 
-The LangGraph agent runs across 4 nodes:
+## Agent Workflow Documentation
 
-```
-[Input Node] → [Risk Analysis Node] → [RAG Retrieval Node] → [Report Generation Node]
-```
+The system is an agent-based pipeline integrating ML, rule-based reasoning, RAG, and LLM report generation to simulate intelligent fleet management.
 
-1. **Input Node** — Accepts vehicle data and runs the ML model to get a prediction
-2. **Risk Analysis Node** — Identifies concerning features (e.g., weak battery, worn brakes)
-3. **RAG Node** — Retrieves top relevant maintenance guidelines from ChromaDB
-4. **Report Node** — Sends all context to the Groq LLM and returns a structured report
+### State Structure
 
-### Sample Report Output
+| State Key | Description |
+|---|---|
+| `input_data` | Vehicle attributes |
+| `prediction` | ML output (0 = No Maintenance, 1 = Maintenance Required) |
+| `risk_factors` | Identified issues from rule-based analysis |
+| `guidelines` | Retrieved maintenance recommendations |
+| `report` | Final structured output |
 
-```
-Health Summary:     Vehicle is at HIGH maintenance risk
-Risk Factors:       Weak battery, worn-out tires, 3 accidents on record
-Recommended Actions: Battery replacement, tire change, brake inspection
-Timeline:           Within 7 days
-Disclaimer:         This report is advisory. Consult a certified mechanic before action.
-```
+### Node Summary
+
+| Node | Role |
+|---|---|
+| **Input Node** | Runs Decision Tree model, outputs maintenance prediction |
+| **Risk Analysis Node** | Rule-based checks on battery, tires, brakes, mileage, age, history |
+| **RAG Retrieval Node** | Queries ChromaDB using risk factors, retrieves guidelines |
+| **Report Node** | Combines all inputs, generates structured LLM report |
+
+### Design Highlights
+
+- **Explainability** — Risk factors provide transparency into predictions
+- **Grounded Output** — RAG reduces hallucination
+- **Modularity** — Each node has a single, clear responsibility
+- **Scalability** — Extendable to fleet-level systems
 
 ---
 
-## Code Quality
+## Structured Fleet Management Report
 
-- Code formatted using **Black** for consistency and readability.
-- Version controlled using Git and hosted on GitHub.
+Every analysis generates a report in the following format:
+
+**1. Health Summary** — Maintenance prediction (Yes/No) and overall risk level (Low / Moderate / High)
+
+**2. Risk Explanation** — Key detected issues such as weak battery, worn tires or brakes, high mileage, poor service or accident history
+
+**3. Recommended Actions** — Component-level fixes (battery, brakes, tires) and servicing tasks
+
+**4. Timeline** — Immediate (safety-critical), Short-term (general servicing), Long-term (preventive)
+
+**5. Safety Disclaimer** — This report is advisory and should not replace professional inspection.
 
 ---
 
@@ -172,6 +190,13 @@ Disclaimer:         This report is advisory. Consult a certified mechanic before
 - Safety disclaimers are included in every report
 - RAG is used to ground the LLM and reduce hallucinations
 - Deterministic ML logic is combined with LLM reasoning
+
+---
+
+## Code Quality
+
+- Code formatted using **Black** for consistency and readability.
+- Version controlled using Git and hosted on GitHub.
 
 ---
 
