@@ -71,6 +71,8 @@ def report_node(state: GraphState):
 
     prompt = f"""
 You are a fleet maintenance expert.
+Use ONLY the provided guidelines to justify recommendations.
+Do not hallucinate.
 
 Vehicle data: {vehicle_data}
 ML Risk Prediction: {"Needs Maintenance" if prediction == 1 else "No Maintenance Required"}
