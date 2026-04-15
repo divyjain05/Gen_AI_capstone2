@@ -1,6 +1,8 @@
 import gradio as gr
+import os
 from src.agent import build_graph
 
+os.environ["GROQ_API_KEY"] = os.getenv("GROQ_API_KEY")
 graph = build_graph()
 
 def analyze_vehicle(
