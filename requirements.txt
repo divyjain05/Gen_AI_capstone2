@@ -1,0 +1,9 @@
+streamlit
+langchain
+langchain-groq
+langgraph
+chromadb
+sentence-transformers
+scikit-learn
+pandas
+joblib
