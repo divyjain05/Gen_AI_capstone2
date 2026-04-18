@@ -1,10 +1,10 @@
-# 🚗 Vehicle Maintenance Prediction & Agentic Fleet Management System
+# Vehicle Maintenance Prediction & Agentic Fleet Management System
 
 An AI-driven fleet analytics system that predicts vehicle maintenance needs using classical machine learning and generates structured, actionable recommendations through an agentic AI workflow. The system is designed to move beyond simple binary prediction — combining rule-based diagnostics, retrieval-augmented generation, and large language model reasoning to produce reports that are explainable, grounded, and professionally structured.
 
 ---
 
-## 📌 Project Overview
+## Project Overview
 
 Fleet maintenance is one of the most operationally critical challenges for logistics companies, transportation services, and mobility platforms. Unplanned vehicle breakdowns lead to service disruptions, safety risks, and high repair costs. This project addresses that problem by building an intelligent system that proactively predicts maintenance needs and guides fleet operators with actionable recommendations.
 
@@ -16,7 +16,7 @@ The project is developed across two milestones:
 
 ---
 
-## ✨ Key Features
+## Key Features
 
 - **ML-Based Maintenance Prediction** using a Decision Tree Classifier trained on real vehicle telemetry features
 - **Class Imbalance Handling** via SMOTE to ensure balanced and reliable predictions
@@ -29,7 +29,7 @@ The project is developed across two milestones:
 
 ---
 
-## 🏗️ System Architecture
+## System Architecture
 
 The system follows a linear agentic pipeline where each stage builds on the output of the previous one:
 
@@ -57,7 +57,7 @@ Input Data → ML Prediction → Risk Analysis → RAG Retrieval → LLM Report 
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 | Category | Tools |
 |---|---|
@@ -73,7 +73,7 @@ Each tool was chosen deliberately. LangGraph was selected over simple function c
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 vehicle-maintenance-ai/
@@ -104,7 +104,7 @@ The `src/` directory separates concerns cleanly — the agent workflow, RAG logi
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### 1. Clone the Repository
 
@@ -133,11 +133,11 @@ python app.py
 
 ---
 
-## 🌐 Deployed Application
+## Deployed Application
 
 The application is publicly hosted on Hugging Face Spaces and requires no local setup to use.
 
-**➡️ Live Demo:** *(hosted link coming soon)*
+** Live Demo:** *(hosted link coming soon)*
 
 To use the deployed app:
 1. Open the application link
@@ -147,7 +147,7 @@ To use the deployed app:
 
 ---
 
-## 📊 Model Details
+## Model Details
 
 The machine learning model at the core of Milestone 1 is a **Decision Tree Classifier** trained on a labelled vehicle dataset. The dataset contains features such as mileage, vehicle age, fuel type, transmission type, engine size, tire condition, brake condition, battery status, service history count, and accident history count. The target variable is `Need_Maintenance` (0 or 1).
 
@@ -162,7 +162,7 @@ A key challenge in this dataset is class imbalance — vehicles that do not need
 
 ---
 
-## 🤖 Agent Workflow Documentation
+## Agent Workflow Documentation
 
 The Milestone 2 system is built as a **LangGraph agent pipeline**, where each node in the graph performs a specific role and passes a shared state object to the next node. This design makes the system transparent, modular, and easy to debug or extend.
 
@@ -196,7 +196,7 @@ The agent maintains a shared state dictionary that is updated and passed through
 
 ---
 
-## 📋 Structured Fleet Management Report
+## Structured Fleet Management Report
 
 Every time the system analyzes a vehicle, it generates a structured report in the following format. This report is designed to be directly useful to a fleet manager or maintenance technician.
 
@@ -217,13 +217,13 @@ Every report includes a standard disclaimer stating that the output is advisory 
 
 ---
 
-## ⚖️ Responsible AI
+## Responsible AI
 
 Responsible AI practices are embedded throughout the design of this system rather than treated as an afterthought. The ML model is evaluated not just on accuracy but on its behavior across both classes, with SMOTE ensuring it does not ignore the minority class. The Risk Analysis layer adds a deterministic, rule-based check that provides transparency into predictions. RAG grounds the LLM output in a curated knowledge base, reducing the risk of the model fabricating maintenance advice. Every generated report includes a safety disclaimer to ensure users understand the advisory nature of the output. Together, these design choices reflect a commitment to building AI systems that are explainable, reliable, and safe.
 
 ---
 
-## 🧹 Code Quality
+## Code Quality
 
 - Code formatted using **Black** for consistency and readability across all modules
 - Version controlled using Git and hosted on GitHub
@@ -231,7 +231,7 @@ Responsible AI practices are embedded throughout the design of this system rathe
 
 ---
 
-## 📦 Deliverables
+## Deliverables
 
 - [x] Publicly deployed application on Hugging Face Spaces
 - [x] Complete GitHub repository with full codebase
@@ -241,12 +241,12 @@ Responsible AI practices are embedded throughout the design of this system rathe
 
 ---
 
-## 🔮 Future Improvements
+## Future Improvements
 
 The current system is a strong foundation but has clear directions for growth. Real-time IoT sensor integration would allow the system to process live vehicle telemetry rather than manual input. More advanced ML models such as XGBoost or neural networks could improve prediction accuracy. Adding SHAP-based feature importance would further enhance explainability. A fleet-level dashboard would allow operators to monitor the health of multiple vehicles simultaneously. Finally, an automated scheduling system could turn recommendations directly into booked service appointments.
 
 ---
 
-## 📄 License
+## License
 
 This project is developed for academic and educational purposes as part of a Generative AI course assignment.
